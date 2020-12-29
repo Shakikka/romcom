@@ -27,14 +27,6 @@ var savedCoversSection = document.querySelector('.saved-covers-section');
 
 var formView = document.querySelector('.form-view');
 
-// var userCover = document.querySelector('.user-cover').value;
-//
-// var userTitle = document.querySelector('.user-title').value;
-//
-// var userDesc1 = document.querySelector('.user-desc1').value;
-//
-// var userDesc2 = document.querySelector('.user-desc2').value;
-
 var savedCovers = [];
 
 var currentCover = new Cover(image, title, tagline1, tagline2);
@@ -63,6 +55,14 @@ function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 };
 
+function hide(element) {
+  element.classList.add('hidden');
+};
+
+function show(element) {
+  element.classList.remove('hidden');
+};
+
 function deleteCover() {
   for (var i = 0; i < savedCovers.length; i++) {
     var coverCheck = savedCovers[i].id;
@@ -76,32 +76,25 @@ function deleteCover() {
 
 
 function saveCover() {
-  for (var i = 0; i < savedCovers.length; i++) {
-    if (currentCover.id === savedCovers[i].id ||
-        currentCover.cover === savedCovers[i].cover &&
-        currentCover.title === savedCover[i].title &&
-        currentCover.tagline1 === savedCover[i].tagline1 &&
-        currentCover.tagline2 === savedCover[i].tagline2) {
-    console.log('Already Saved!');
-    return;
-    };
-
-  };
-      savedCovers.unshift(currentCover);
-      covers.unshift(currentCover.cover);
-      titles.unshift(currentCover.title);
-      descriptors.unshift(currentCover.tagline1);
-      descriptors.unshift(currentCover.tagline2);
+  if (!savedCovers.includes(currentCover)) {
+    savedCovers.unshift(currentCover);
+    covers.unshift(currentCover.cover);
+    titles.unshift(currentCover.title);
+    descriptors.unshift(currentCover.tagline1);
+    descriptors.unshift(currentCover.tagline2);
+  }
 };
 
+
+
 function viewForm() {
-  formView.classList.remove('hidden');
-  randomCoverButton.classList.add('hidden');
-  saveCoverButton.classList.add('hidden');
-  homeButton.classList.remove('hidden');
-  homeView.classList.add('hidden');
-  savedCoversView.classList.add('hidden');
-  savedCoversSection.classList.add('hidden');
+  show(formView);
+  hide(randomCoverButton);
+  hide(saveCoverButton);
+  show(homeButton);
+  hide(homeView);
+  hide(savedCoversView);
+  hide(savedCoversSection);
 };
 
 function makeNewBook() {
@@ -117,20 +110,23 @@ function makeBook() {
   currentCover = new Cover(userCover, userTitle, userDesc1, userDesc2);
   if (userCover === "" || userTitle === "" || userDesc1 === "" || userDesc2 === "") {
   } else {
-    image.src = currentCover.cover;
-    title.innerText = currentCover.title;
-    tagline1.innerText = currentCover.tagline1;
-    tagline2.innerText = currentCover.tagline2;
-    homeView.classList.remove('hidden');
-    formView.classList.add('hidden');
-    saveCoverButton.classList.remove('hidden');
+    showBook();
   };
-  userCover = null;
-  userTitle = null;
-  userDesc1 = null;
-  userDesc2 = null;
+  // userCover = null;
+  // userTitle = null;
+  // userDesc1 = null;
+  // userDesc2 = null;
 };
 
+function showBook() {
+  image.src = currentCover.cover;
+  title.innerText = currentCover.title;
+  tagline1.innerText = currentCover.tagline1;
+  tagline2.innerText = currentCover.tagline2;
+  show(homeView);
+  hide(formView);
+  show(saveCoverButton);
+}
 
 function createCover() {
   var descriptor1 = descriptors[getRandomIndex(descriptors)];
@@ -142,7 +138,7 @@ function createCover() {
   title.innerText = currentCover.title;
   tagline1.innerText = currentCover.tagline1;
   tagline2.innerText = currentCover.tagline2;
-  formView.classList.add('hidden');
+  hide(formView);
 };
 
 function showMiniBooks() {
@@ -161,24 +157,24 @@ function showMiniBooks() {
 };
 
 function viewSavedCovers() {
-  savedCoversSection.classList.remove('hidden');
-  homeView.classList.add('hidden');
-  savedCoversView.classList.remove('hidden');
-  saveCoverButton.classList.add('hidden');
-  randomCoverButton.classList.add('hidden');
-  homeButton.classList.remove('hidden');
-  formView.classList.add('hidden');
+  show(savedCoversSection);
+  hide(homeView);
+  show(savedCoversView);
+  hide(saveCoverButton);
+  hide(randomCoverButton);
+  show(homeButton);
+  hide(formView);
   showMiniBooks();
 };
 
 function viewHome() {
-  homeView.classList.remove('hidden');
-  homeButton.classList.add('hidden');
-  saveCoverButton.classList.remove('hidden');
-  randomCoverButton.classList.remove('hidden');
-  savedCoversSection.classList.add('hidden');
-  savedCoversView.classList.add('hidden');
-  formView.classList.add('hidden');
+  show(homeView);
+  hide(homeButton);
+  show(saveCoverButton);
+  show(randomCoverButton);
+  hide(savedCoversSection);
+  hide(savedCoversView);
+  hide(formView);
 };
 
 
