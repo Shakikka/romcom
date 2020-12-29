@@ -27,11 +27,17 @@ var savedCoversSection = document.querySelector('.saved-covers-section');
 
 var formView = document.querySelector('.form-view');
 
+var coverValue = document.querySelector('#cover');
+
+var titleValue = document.querySelector('#title');
+
+var descriptor1Value = document.querySelector('#descriptor1');
+
+var descriptor2Value = document.querySelector('#descriptor2');
+
 var savedCovers = [];
 
 var currentCover = new Cover(image, title, tagline1, tagline2);
-
-
 
 // Event listeners 👇
 homeButton.addEventListener('click', viewHome);
@@ -61,6 +67,13 @@ function hide(element) {
 
 function show(element) {
   element.classList.remove('hidden');
+};
+
+function clearForm() {
+  coverValue.value = "";
+  titleValue.value = "";
+  descriptor1Value.value = "";
+  descriptor2Value.value = "";
 };
 
 function deleteCover() {
@@ -98,8 +111,9 @@ function viewForm() {
 };
 
 function makeNewBook() {
-  event.preventDefault()
-  makeBook()
+  event.preventDefault();
+  makeBook();
+  clearForm();
 };
 
 function makeBook() {
@@ -112,10 +126,7 @@ function makeBook() {
   } else {
     showBook();
   };
-  // userCover = null;
-  // userTitle = null;
-  // userDesc1 = null;
-  // userDesc2 = null;
+
 };
 
 function showBook() {
