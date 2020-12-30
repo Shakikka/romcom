@@ -28,7 +28,7 @@ makeCoverButton.addEventListener('click', viewForm);
 makeNewBookButton.addEventListener('click', makeNewBook);
 viewSavedButton.addEventListener('click', viewSavedCovers);
 savedCoversSection.addEventListener('dblclick', deleteCover);
-
+window.addEventListener('load', createCover());
 
 // Event handlers functions 👇
 function getRandomIndex(array) {
@@ -159,5 +159,3 @@ function viewHome() {
   hide(savedCoversView);
   hide(formView);
 };
-
-createCover();
