@@ -67,13 +67,25 @@ function deleteCover() {
   showMiniBooks();
 };
 
+function coverMatch(cover) {
+  if (cover.cover === currentCover.cover
+    && cover.title === currentCover.title
+    && cover.tagline1 === currentCover.tagline1
+    && cover.tagline2 === currentCover.tagline2) {
+    return true
+  } else {
+    return false
+  }
+};
+
 function saveCover() {
-  if (!savedCovers.includes(currentCover)) {
-    savedCovers.unshift(currentCover);
-    covers.unshift(currentCover.cover);
-    titles.unshift(currentCover.title);
-    descriptors.unshift(currentCover.tagline1);
-    descriptors.unshift(currentCover.tagline2);
+  var doesExist = savedCovers.some(coverMatch)
+  if (!doesExist) {
+  savedCovers.unshift(currentCover);
+  covers.unshift(currentCover.cover);
+  titles.unshift(currentCover.title);
+  descriptors.unshift(currentCover.tagline1);
+  descriptors.unshift(currentCover.tagline2);
   }
 };
 
