@@ -67,14 +67,51 @@ function deleteCover() {
   showMiniBooks();
 };
 
-function saveCover() {
-  if (!savedCovers.includes(currentCover)) {
-    savedCovers.unshift(currentCover);
-    covers.unshift(currentCover.cover);
-    titles.unshift(currentCover.title);
-    descriptors.unshift(currentCover.tagline1);
-    descriptors.unshift(currentCover.tagline2);
+function coverMatch(cover) {
+  if (cover.cover === currentCover.cover
+    && cover.title === currentCover.title
+    && cover.tagline1 === currentCover.tagline1
+    && cover.tagline2 === currentCover.tagline2) {
+    return true
+  } else {
+    return false
   }
+};
+
+function coverImageMatch() {
+  if (!covers.includes(currentCover.cover)) {
+    covers.unshift(currentCover.cover)
+  }
+};
+
+function titleMatch() {
+  if (!titles.includes(currentCover.title)) {
+    titles.unshift(currentCover.title)
+  }
+};
+
+function descriptor1Match() {
+  if (!descriptors.includes(currentCover.tagline1)) {
+    descriptors.unshift(currentCover.tagline1)
+  }
+};
+
+function descriptor2Match() {
+  if (!descriptors.includes(currentCover.tagline2)) {
+    descriptors.unshift(currentCover.tagline2)
+  }
+};
+
+function saveCover() {
+  var coverExist = savedCovers.some(coverMatch)
+  if (!coverExist) {
+    savedCovers.unshift(currentCover);
+  }
+
+  coverImageMatch()
+  titleMatch()
+  descriptor1Match()
+  descriptor2Match()
 };
 
 function viewForm() {
@@ -98,7 +135,6 @@ function makeBook() {
   } else {
     showBook();
   };
-
 };
 
 function showBook() {
