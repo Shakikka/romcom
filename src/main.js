@@ -78,15 +78,40 @@ function coverMatch(cover) {
   }
 };
 
-function saveCover() {
-  var doesExist = savedCovers.some(coverMatch)
-  if (!doesExist) {
-  savedCovers.unshift(currentCover);
-  covers.unshift(currentCover.cover);
-  titles.unshift(currentCover.title);
-  descriptors.unshift(currentCover.tagline1);
-  descriptors.unshift(currentCover.tagline2);
+function coverImageMatch() {
+  if (!covers.includes(currentCover.cover)) {
+    covers.unshift(currentCover.cover)
   }
+};
+
+function titleMatch() {
+  if (!titles.includes(currentCover.title)) {
+    titles.unshift(currentCover.title)
+  }
+};
+
+function descriptor1Match() {
+  if (!descriptors.includes(currentCover.tagline1)) {
+    descriptors.unshift(currentCover.tagline1)
+  }
+};
+
+function descriptor2Match() {
+  if (!descriptors.includes(currentCover.tagline2)) {
+    descriptors.unshift(currentCover.tagline2)
+  }
+};
+
+function saveCover() {
+  var coverExist = savedCovers.some(coverMatch)
+  if (!coverExist) {
+    savedCovers.unshift(currentCover);
+  }
+
+  coverImageMatch()
+  titleMatch()
+  descriptor1Match()
+  descriptor2Match()
 };
 
 function viewForm() {
@@ -110,7 +135,6 @@ function makeBook() {
   } else {
     showBook();
   };
-
 };
 
 function showBook() {
